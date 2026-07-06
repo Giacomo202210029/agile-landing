@@ -55,3 +55,36 @@ export async function submitClientProfile(
     clearTimeout(timeout);
   }
 }
+
+const MOCK_TOP5: TrendReportSummary["top5"] = [
+  "Blazer oversized (emergente)",
+  "Falda tableada (en_ascenso)",
+  "Conjunto sastre (en_pico)",
+  "Color camel (emergente)",
+  "Botas track (en_pico)",
+];
+
+const MOCK_EVITAR: TrendReportSummary["evitar"] = ["Vestido animal print", "Denim skinny"];
+
+/**
+ * Fake response for demo mode: no network call, no cost. Used whenever the
+ * site isn't in "live" mode (see DemoModeContext) so people trying the form
+ * out of curiosity never trigger a real (paid) n8n run.
+ */
+export async function simulateClientProfile(
+  payload: ClientProfilePayload,
+): Promise<TrendReportSummary> {
+  await new Promise((resolve) => setTimeout(resolve, 1600));
+
+  return {
+    timestamp: new Date().toISOString(),
+    version: "demo",
+    cliente: payload.nombre || "tu marca",
+    destinatario: payload.email || "tu correo",
+    estado: "simulado",
+    resumen: { emergentes: 2, en_ascenso: 1, en_pico: 2, saturados: 1, decayendo: 0 },
+    top5: MOCK_TOP5,
+    evitar: MOCK_EVITAR,
+    caracteres_reporte: 0,
+  };
+}

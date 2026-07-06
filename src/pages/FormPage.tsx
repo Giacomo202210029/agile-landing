@@ -2,8 +2,12 @@ import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { ClientProfileForm } from "../components/form/ClientProfileForm";
 import { FormResult } from "../components/form/FormResult";
-import { submitClientProfile } from "../lib/n8n";
+import { submitClientProfile, simulateClientProfile } from "../lib/n8n";
+import { useDemoMode } from "../context/DemoModeContext";
 import type { ClientProfilePayload, TrendReportSummary } from "../types/clientProfile";
+
+const LIVE_COOLDOWN_MS = 30_000;
+const LAST_LIVE_SUBMIT_KEY = "trendops-last-live-submit";
 
 const INTRO_COPY: Record<string, { eyebrow: string; title: string; description: string }> = {
   demo: {
@@ -25,16 +29,29 @@ export function FormPage() {
   const origen = searchParams.get("origen") ?? "";
   const prefilledEmail = searchParams.get("email") ?? "";
   const copy = INTRO_COPY[origen] ?? INTRO_COPY.default;
+  const { isLive } = useDemoMode();
 
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [summary, setSummary] = useState<TrendReportSummary | null>(null);
 
   async function handleSubmit(payload: ClientProfilePayload) {
+    if (isLive) {
+      const lastSubmit = Number(localStorage.getItem(LAST_LIVE_SUBMIT_KEY) ?? 0);
+      const waitMs = LIVE_COOLDOWN_MS - (Date.now() - lastSubmit);
+      if (waitMs > 0) {
+        setError(`Espera ${Math.ceil(waitMs / 1000)}s antes de generar otro reporte en vivo.`);
+        return;
+      }
+    }
+
     setSubmitting(true);
     setError(null);
     try {
-      const result = await submitClientProfile(payload);
+      const result = isLive
+        ? await submitClientProfile(payload)
+        : await simulateClientProfile(payload);
+      if (isLive) localStorage.setItem(LAST_LIVE_SUBMIT_KEY, String(Date.now()));
       setSummary(result);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
