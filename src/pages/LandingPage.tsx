@@ -12,7 +12,7 @@ export function LandingPage() {
       <Hero />
       <TrendTicker />
 
-      <section className="py-16 md:py-stack-xl px-6 md:px-margin-desktop max-w-[1440px] mx-auto">
+      <section id="metodologia" className="py-16 md:py-stack-xl px-6 md:px-margin-desktop max-w-[1440px] mx-auto">
         <div className="grid grid-cols-12 gap-gutter">
           <ClassificationEngine />
           <div className="hidden md:block col-span-1" />

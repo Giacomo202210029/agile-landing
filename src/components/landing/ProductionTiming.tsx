@@ -1,4 +1,5 @@
 import { Reveal } from "../ui/Reveal";
+import { CtaLink } from "../ui/CtaLink";
 
 export function ProductionTiming() {
   return (
@@ -16,12 +17,9 @@ export function ProductionTiming() {
             al taller. La ventana entre detectar la tendencia y producir es de días, no de
             meses — perderla significa producir cuando la tendencia ya bajó.
           </p>
-          <a
-            className="inline-flex items-center font-utility-bold text-utility-bold uppercase border-b-2 border-primary pb-2 hover:text-primary transition-colors"
-            href="#"
-          >
+          <CtaLink to="/formulario?origen=planes" variant="outline-dark">
             Explorar Planes <span className="material-symbols-outlined ml-2">arrow_forward</span>
-          </a>
+          </CtaLink>
         </div>
         <div className="w-full md:w-1/3 bg-on-background text-surface p-6 aspect-[3/4] flex flex-col justify-end group transition-transform duration-500 hover:-translate-y-2">
           <span className="font-utility-bold text-utility-bold uppercase opacity-50 group-hover:opacity-100 transition-opacity duration-500">

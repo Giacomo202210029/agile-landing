@@ -10,7 +10,7 @@ const REPORT_ITEMS = [
 
 export function ReportPreview() {
   return (
-    <section className="bg-surface-container-low py-16 md:py-stack-xl relative overflow-hidden">
+    <section id="reportes" className="bg-surface-container-low py-16 md:py-stack-xl relative overflow-hidden">
       <div className="px-6 md:px-margin-desktop max-w-[1440px] mx-auto grid grid-cols-12 gap-gutter items-center">
         <Reveal className="col-span-12 md:col-span-5 z-10">
           <h2 className="font-display-sm text-[32px] md:text-display-sm mb-8 leading-tight">

@@ -31,12 +31,9 @@ export function FinalCta() {
                 <CtaLink to="/formulario?origen=cta-final" variant="dark" className="w-full">
                   Suscribirse Ahora
                 </CtaLink>
-                <a
-                  className="border border-surface text-surface font-utility-bold text-utility-bold uppercase px-12 py-5 hover:bg-surface/10 transition-all text-center"
-                  href="#"
-                >
+                <CtaLink to="/formulario?origen=contacto" variant="outline-light" className="w-full">
                   Contacto Corporativo
-                </a>
+                </CtaLink>
               </div>
             </div>
           </div>

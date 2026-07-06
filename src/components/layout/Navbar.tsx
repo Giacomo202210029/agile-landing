@@ -3,9 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { CtaLink } from "../ui/CtaLink";
 
 const NAV_LINKS = [
-  { label: "Intel", to: "#", strike: true },
-  { label: "Reports", to: "#" },
-  { label: "Archive", to: "#" },
+  { label: "Metodología", to: "#metodologia" },
+  { label: "Reportes", to: "#reportes" },
 ];
 
 export function Navbar() {
@@ -36,9 +35,7 @@ export function Navbar() {
             <a
               key={link.label}
               href={link.to}
-              className={`nav-link font-utility-bold text-utility-bold uppercase transition-colors duration-200 ${
-                link.strike ? "text-primary strike-through" : "text-on-background hover:text-primary"
-              }`}
+              className="nav-link font-utility-bold text-utility-bold uppercase transition-colors duration-200 text-on-background hover:text-primary"
             >
               {link.label}
             </a>
@@ -68,9 +65,7 @@ export function Navbar() {
             <a
               key={link.label}
               href={link.to}
-              className={`font-utility-bold text-utility-bold uppercase ${
-                link.strike ? "text-primary strike-through" : "text-on-background"
-              }`}
+              className="font-utility-bold text-utility-bold uppercase text-on-background"
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
